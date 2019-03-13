@@ -26,13 +26,11 @@ const cartList = [
 
 /* Get HTTP Requests */
 app.get('/list', (req, res) => {
-    console.log("GET REQUEST")
     res.send(cartList);
 });
 
 /* POST HTTP Requests */
 app.post('/item/add', (req, res) => {
-    console.log("GOT A POST REQUEST");
     /* Input validation on POST requests */
     if (!req.body.name || req.body.name.length < 3) { // if name doesn't exist in the body or its length < 3
         res.status(400).send("Name is required and should be minimum 3 characters");

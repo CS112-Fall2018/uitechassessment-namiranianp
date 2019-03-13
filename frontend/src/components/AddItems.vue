@@ -7,12 +7,12 @@
       Go Back.
     </a><br>
     <br>
-    <form class="itemForm" method="POST" action="http://localhost:5555/item/add">
+    <form id="itemForm" class="itemForm" v-on:submit="myfunc()">
       <h3>What item do you want?</h3>
-      <input type="text" name="name" placeholder="Item Name"/><br>
-      <input type="text" name="description" placeholder="Item Description"/><br>
-      <input type="number" name="price" placeholder="Item Value (positive int only)"/><br>
-      <input type="number" name="amount" placeholder="Quantity (positive int only)"/><br>
+      <input id="itemName" type="text" name="name" placeholder="Item Name"/><br>
+      <input id="itemDesc" type="text" name="description" placeholder="Item Description"/><br>
+      <input id="itemPrice" type="number" name="price" placeholder="Item Value (positive int only)"/><br>
+      <input id="itemQuant" type="number" name="amount" placeholder="Quantity (positive int only)"/><br>
       <button type="submit" name="submit" style="height: 50px; width: 220px;">
         Add to cart!
       </button>
@@ -22,6 +22,7 @@
 
 <script>
 import router from '../router';
+import axios from 'axios';
 
 export default {
   name: 'AddItems',
@@ -31,6 +32,21 @@ export default {
     };
   },
   methods: {
+    myfunc() {
+      console.log("hello");
+      axios.post('http://localhost:5555/item/add', {
+        name: document.getElementById('itemName').value,
+        description: document.getElementById('itemDesc').value,
+        price: document.getElementById('itemPrice').value,
+        amount: document.getElementById('itemQuant').value
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
     navigate() {
       router.go(-1);
     },
